@@ -2,6 +2,8 @@
 
 #region  MAIN
 
+using System.Linq;
+
 string klass = "Net22";
 string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
 string[] messages = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
@@ -11,7 +13,7 @@ WebGenerator web = new StyledWebsiteGenerator(klass, messages, techniques, "red"
 //web.GetCourses();
 //web.GetClassName();
 
-//web.PrintPage();
+web.PrintPage();
 //web.printToFil();
 
 #endregion
@@ -61,14 +63,20 @@ class WebGenerator : Ainformations, Iinformations
 
     string PrintMessageToClass(string[] messages, string className)
     {
-        string welcome = $"<h1>Välkomna {className.ToUpper()} HÄR!</h1>";
+        string welcome = "";
 
-        int messageCount = 0;
+        welcome = messages.Aggregate($"<h1>Välkomna {className.ToUpper()} HÄR!</h1>", (temp, next) =>
+        temp += $"\n<p><b>Meddelande {Array.IndexOf(messages, next)+1}:</b> {next}.</p>");
 
-        foreach (string message in messages)
-        {
-            welcome += $"\n<p><b>Meddelande {messageCount + 1}:</b> {message}.</p>";
-        }
+
+        #region Innan användning av aggregate. (FOREACH)
+        //int messageCount = 0;
+        //
+        //foreach (string message in messages)
+        //{
+        //    welcome += $"\n<p><b>Meddelande {messageCount + 1}:</b> {message}.</p>";
+        //}
+        #endregion
 
         return welcome;
     }
@@ -90,10 +98,15 @@ class WebGenerator : Ainformations, Iinformations
                 courses[i] = courses[i].Trim();
             }
 
-            foreach (string course in courses)
-            {
-                courseList += $"<p>Kurs om {course.First().ToString().ToUpper() + course.Substring(1).ToLower().Replace("kk", "ck")}</p>\n";
-            }
+            courseList = courses.Aggregate("", (temp, next) =>
+            temp += $"<p>Kurs om {next.First().ToString().ToUpper() + next.Substring(1).ToLower().Replace("kk", "ck")}</p>\n");
+
+            #region Innan användning av aggregate. (FOREACH)
+            //foreach (string course in courses)
+            //{
+            //    courseList += $"<p>Kurs om {course.First().ToString().ToUpper() + course.Substring(1).ToLower().Replace("kk", "ck")}</p>\n";
+            //}
+            #endregion
         }
 
         return courseList;
