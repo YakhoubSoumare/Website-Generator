@@ -66,7 +66,7 @@ class WebGenerator : Ainformations, Iinformations
         string welcome = "";
 
         welcome = messages.Aggregate($"<h1>Välkomna {className.ToUpper()} HÄR!</h1>", (temp, next) =>
-        temp += $"\n<p><b>Meddelande {Array.IndexOf(messages, next)+1}:</b> {next}.</p>");
+        temp += $"\n<p><b>Meddelande {Array.IndexOf(messages, next) + 1}:</b> {next}.</p>");
 
 
         #region Innan användning av aggregate. (FOREACH)
