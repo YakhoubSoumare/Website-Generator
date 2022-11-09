@@ -14,7 +14,7 @@ WebGenerator web = new StyledWebsiteGenerator(klass, messages, techniques, "red"
 //web.GetClassName();
 
 web.PrintPage();
-//web.printToFil();
+web.printToFil();
 
 #endregion
 
@@ -45,7 +45,7 @@ class WebGenerator : Ainformations, Iinformations
 
     public void printToFil()
     {
-        FileInfo fi = new FileInfo(@"webFile.txt");
+        FileInfo fi = new FileInfo(@"webFile.html");
         FileStream fs = fi.Open(FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
         StreamWriter sw = new StreamWriter(fs);
         sw.WriteLine(PrintTop());
